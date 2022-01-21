@@ -21,6 +21,7 @@
   /* justify-content: space-around; */
   align-items: center;
   padding: 50px 0;
+  overflow: hidden;
 
 }
 
@@ -229,7 +230,7 @@ li{
 
 .list{
     height: 200px;
-    width: 400px;
+    /* width: 400px; */
     overflow-y: scroll;
     border: 2px solid black;
     padding: 0;
