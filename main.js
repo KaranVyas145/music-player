@@ -7,12 +7,30 @@ const progress=document.querySelector('.progress');
 const progresscontainer=document.querySelector('.progress-container');
 const title=document.querySelector('#title');
 const cover=document.querySelector('#cover');
+const songList=document.querySelector('#song-select');
 
 // Song title 
 const songs= ['Doja Cat - Get Into It (yuh)','Doja Cat - Kiss Me More ft. SZA','Doja Cat - Need To Know','Doja Cat - Woman'];
 
 // Keep track of the songs 
-let songIndex= 2;
+let songIndex=0;
+
+// Select default value on reload
+function defaultselect(){
+    songList.value="Select a song";
+}
+
+// Select a song 
+songList.addEventListener('click',()=>{
+    for (let i in songs){
+        if(songs[i]==songList.value){
+            loadSong(songs[i]);
+            playSong();
+            console.log(songs[i]);
+        }
+        
+    }
+})
 
 // Initially load songs into DOM 
 loadSong(songs[songIndex]);
@@ -29,7 +47,7 @@ function playSong(){
     play.querySelector('i.fas').classList.remove('fa-play');
     play.querySelector('i.fas').classList.add('fa-pause');
     audio.play();
-
+    // songList.value=songs[songIndex];
 }
 
 function pauseSong(){
@@ -44,6 +62,7 @@ function prevSong(){
     if(songIndex<0){
         songIndex=songs.length-1;
     }
+    songList.value=songs[songIndex];
     loadSong(songs[songIndex]);
     playSong();
 }
@@ -53,6 +72,7 @@ function nextSong(){
     if(songIndex>songs.length-1){
         songIndex=0;
     }
+    songList.value=songs[songIndex];
     loadSong(songs[songIndex]);
     playSong();
 }
