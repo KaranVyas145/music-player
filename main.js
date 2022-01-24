@@ -8,7 +8,6 @@ const progresscontainer = document.querySelector(".progress-container");
 const title = document.querySelector("#title");
 const cover = document.querySelector("#cover");
 const songList = document.querySelector(".list");
-
 // const songList=document.querySelector('#song-select');
 // Song title
 const songs = [
@@ -21,22 +20,44 @@ const songs = [
   "Doja Cat - Woman",
 ];
 
-for(i in songs){
-  let liTag=`
-  <li>${songs[i]}</li>
+for (i in songs) {
+  let liTag = `
+  <li class="songs">${songs[i]}</li>
   `;
-  songList.innerHTML+=liTag;
+  songList.innerHTML += liTag;
 }
 
-songList.addEventListener('click',(e)=>{
-  for (let i in songs){
-            if(songs[i]==e.target.innerText){
-                loadSong(songs[i]);
-                playSong();
-                console.log(songs[i]);
-            }
+const list=document.querySelectorAll(".songs")
+console.log(list);
+
+list.forEach(element => {
+  element.addEventListener('click',()=>{
+    for (let i in songs) {
+          if (songs[i] == element.innerText) {
+            loadSong(songs[i]);
+            playSong();
+            console.log(songs[i]);
+            // element.setAttribute('style','color:blue');
           }
-})
+        }
+  })
+});
+
+// songList.addEventListener("click", (e) => {
+//   console.log(e);
+//   for (let i in songs) {
+//     if (songs[i] == e.target.innerText) {
+//       loadSong(songs[i]);
+//       playSong();
+//       console.log(songs[i]);
+//     }
+//   }
+// });
+
+
+
+
+
 
 
 
@@ -68,9 +89,18 @@ function loadSong(song) {
   title.innerText = song;
   audio.src = `music/${song}.mp3`;
   cover.src = `images/${song}.jpg`;
+  list.forEach(element => {
+    if(element.innerText===song){
+      element.setAttribute('style','color:black');
+    }
+    else{
+      element.setAttribute('style','color:white');
+    }
+  });
 }
 
 function playSong() {
+  // element.setAttribute('style','color:black');
   musicContainer.classList.add("play");
   play.querySelector("i.fas").classList.remove("fa-play");
   play.querySelector("i.fas").classList.add("fa-pause");
