@@ -91,10 +91,10 @@ function loadSong(song) {
   cover.src = `images/${song}.jpg`;
   list.forEach(element => {
     if(element.innerText===song){
-      element.setAttribute('style','color:black');
+      element.setAttribute('style','background-color:purple');
     }
     else{
-      element.setAttribute('style','color:white');
+      element.removeAttribute('style','background-color:purple');
     }
   });
 }

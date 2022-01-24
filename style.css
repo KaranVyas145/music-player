@@ -151,9 +151,6 @@
     height: 120px;
 }
 
-.music-info h4 {
-    /* margin: 10px; */
-}
 
 .music-container.music-container.play .music-info{
     opacity: 1;
