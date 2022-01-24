@@ -9,7 +9,7 @@ const title = document.querySelector("#title");
 const cover = document.querySelector("#cover");
 const songList = document.querySelector(".list");
 // const songList=document.querySelector('#song-select');
-// Song title
+// Song titles array
 const songs = [
   "Doja Cat - Get Into It (yuh)",
   "Doja Cat - Kiss Me More ft. SZA",
@@ -20,6 +20,7 @@ const songs = [
   "Doja Cat - Woman",
 ];
 
+// Inserting the songs in a list
 for (i in songs) {
   let liTag = `
   <li class="songs">${songs[i]}</li>
@@ -27,20 +28,21 @@ for (i in songs) {
   songList.innerHTML += liTag;
 }
 
-const list=document.querySelectorAll(".songs")
-console.log(list);
+const list = document.querySelectorAll(".songs");
+// console.log(list);
 
-list.forEach(element => {
-  element.addEventListener('click',()=>{
+// Making the list functional by adding the click event so that the user can navigate through songs by clicking on the list items
+list.forEach((element) => {
+  element.addEventListener("click", () => {
     for (let i in songs) {
-          if (songs[i] == element.innerText) {
-            loadSong(songs[i]);
-            playSong();
-            console.log(songs[i]);
-            // element.setAttribute('style','color:blue');
-          }
-        }
-  })
+      if (songs[i] == element.innerText) {
+        loadSong(songs[i]);
+        playSong();
+        console.log(songs[i]);
+        // element.setAttribute('style','color:blue');
+      }
+    }
+  });
 });
 
 // songList.addEventListener("click", (e) => {
@@ -53,13 +55,6 @@ list.forEach(element => {
 //     }
 //   }
 // });
-
-
-
-
-
-
-
 
 // Keep track of the songs
 let songIndex = 0;
@@ -89,12 +84,11 @@ function loadSong(song) {
   title.innerText = song;
   audio.src = `music/${song}.mp3`;
   cover.src = `images/${song}.jpg`;
-  list.forEach(element => {
-    if(element.innerText===song){
-      element.setAttribute('style','background-color:purple');
-    }
-    else{
-      element.removeAttribute('style','background-color:purple');
+  list.forEach((element) => {
+    if (element.innerText === song) {
+      element.setAttribute("style", "background-color:purple");
+    } else {
+      element.removeAttribute("style", "background-color:purple");
     }
   });
 }
@@ -151,22 +145,39 @@ function setProgress(e) {
   audio.currentTime = (clickX / width) * duration;
 }
 
-// Event listeners
-play.addEventListener("click", () => {
+function playing() {
   const isPlaying = musicContainer.classList.contains("play");
   if (isPlaying) {
     pauseSong();
   } else {
     playSong();
   }
-});
+}
+
+// Event listeners
+play.addEventListener("click", playing);
 
 // Change song events
 prev.addEventListener("click", prevSong);
 next.addEventListener("click", nextSong);
-
 audio.addEventListener("timeupdate", updateProgress);
 
 progresscontainer.addEventListener("click", setProgress);
 
 audio.addEventListener("ended", nextSong);
+
+// Keyboard functionality
+document.addEventListener("keydown", (e) => {
+  console.log(e);
+  switch (e.keyCode) {
+    case 32:
+      playing();
+      break;
+    case 39:
+      nextSong();
+      break;
+    case 37:
+      prevSong();
+      break;
+  }
+});

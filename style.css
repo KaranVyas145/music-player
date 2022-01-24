@@ -239,7 +239,7 @@ li{
     height: 200px;
     /* width: 400px; */
     overflow-y: scroll;
-    border: 2px solid black;
+    border: 2px solid rgb(0, 72, 100);
     padding: 0;
 }
 
