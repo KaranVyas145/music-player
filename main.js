@@ -31,11 +31,15 @@ for (i in songs) {
 const list = document.querySelectorAll(".songs");
 // console.log(list);
 
+// Keep track of the songs
+let songIndex = 0;
+
 // Making the list functional by adding the click event so that the user can navigate through songs by clicking on the list items
 list.forEach((element) => {
   element.addEventListener("click", () => {
     for (let i in songs) {
       if (songs[i] == element.innerText) {
+        songIndex=i;
         loadSong(songs[i]);
         playSong();
         console.log(songs[i]);
@@ -56,8 +60,7 @@ list.forEach((element) => {
 //   }
 // });
 
-// Keep track of the songs
-let songIndex = 0;
+
 
 // Select default value on reload
 // function defaultselect(){
@@ -124,6 +127,7 @@ function nextSong() {
   if (songIndex > songs.length - 1) {
     songIndex = 0;
   }
+  // console.log(songIndex);
   // songList.value=songs[songIndex];
   loadSong(songs[songIndex]);
   playSong();
@@ -168,7 +172,10 @@ audio.addEventListener("ended", nextSong);
 
 // Keyboard functionality
 document.addEventListener("keydown", (e) => {
-  console.log(e);
+  // console.log(e);
+  // if(e.keyCode===32){
+  //   playing();
+  // }
   switch (e.keyCode) {
     case 32:
       playing();
